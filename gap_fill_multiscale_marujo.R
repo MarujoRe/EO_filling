@@ -1,7 +1,16 @@
+#############################################################
+## Gap-fill raster images through Marujo
+## rennanmarujo@gmail.com - Mar 2019
+#############################################################
+
+##############################
+# 0 - Load librairies
+##############################
 library(raster)
 library(foreach)
 library(doParallel)
 
+#############################################################
 fillMarujo <- function(imgGap,imgRef,imgSegMask1,imgSegMask2,imgSegMask3){
     cat("Filling...")
     # Get all image value as a vector
@@ -95,7 +104,7 @@ fillMarujo <- function(imgGap,imgRef,imgSegMask1,imgSegMask2,imgSegMask3){
     return(imgGap)
 }
 
-################################
+#############################################################
 # Calculate the number of cores
 no_cores <- detectCores() - 1
 # Initiate cluster
@@ -110,7 +119,7 @@ imgSegMask2 <- raster(matrix(c(10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,30),
 imgSegMask3 <- raster(matrix(c(10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10),4,4)) # scale 20
 imgGap      <- raster(matrix(c(1,2,3,4,2,20,22,2,NA,NA,NA,NA,NA,NA,NA,NA),4,4))
 imgRef      <- raster(matrix(c(10,20,30,40,20,20,22,20,30,40,50,60,70,80,90,00),4,4))
-#################
+#############################################################
 
 filledimg <- fillMarujo(imgGap,imgRef,imgSegMask1,imgSegMask2,imgSegMask3)
 
