@@ -1,10 +1,17 @@
+#############################################################
+## Gap-fill raster images through Time Series
+## rennanmarujo@gmail.com - Mar 2019
+#############################################################
+
+##############################
+# 0 - Load librairies
+##############################
 library(raster)
 library(foreach)
 library(doParallel)
 library(zoo)
 
-start.time <- Sys.time()
-
+#############################################################
 calcMeanTS <- function (TSlist){
   useindex <- lapply(TSlist,is.na)
   meanTS <- rep(0, length=length(useindex[[1]]) )
@@ -18,6 +25,8 @@ calcMeanTS <- function (TSlist){
   meanTS <- meanTS/countVec
   meanTS <- na.spline(meanTS)
 }
+
+start.time <- Sys.time()
 
 #For each segment
 for(i in 1:numSegs){
